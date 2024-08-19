@@ -2,9 +2,15 @@ package main
 
 // 10. Create a program using a variadic function to output a list of 10 things To Do to a JSON format file. [Variadic Functions][Structures][JSON]
 
-import ("fmt"
-		"encoding/json"
-	)
+import (
+	"encoding/json"
+	"fmt"
+	"os"
+)
+
+type TodoList struct {
+	Todos []string `json:"todos"`
+}
 func VariadicList(list ...string) []string {
 	for _, n := range list {
 		fmt.Printf("%v\n", n)
@@ -12,7 +18,7 @@ func VariadicList(list ...string) []string {
 	return list
 }
 
-func VariadicListJSON(list ...string) string {
+func VariadicListToJSON(list ...string) string {
 	tasks := make(map[string][]string)
 	tasks["tasks"] = list
 	jsonData, err := json.MarshalIndent(tasks, "", "    ")
@@ -22,3 +28,25 @@ func VariadicListJSON(list ...string) string {
 	return string(jsonData)
 }
 
+func VariadicJSONFile() {
+	jsonData, err := os.ReadFile("todo.json")
+	if err != nil {
+		fmt.Println("Error reading file:",err)
+		return
+	}
+
+	var todoList TodoList
+
+	err = json.Unmarshal(jsonData, &todoList) 
+	if err != nil {
+		fmt.Println("Error unmarshalling JSON:", err)
+		return
+	}
+
+	fmt.Println("Your Todo list:")
+	for i, todo := range todoList.Todos {
+		fmt.Printf("%d, %s\n:", i+1, todo)
+	}
+
+
+}
