@@ -1,7 +1,5 @@
 package main
 
-// 10. Create a program using a variadic function to output a list of 10 things To Do to a JSON format file. [Variadic Functions][Structures][JSON]
-
 import (
 	"encoding/json"
 	"fmt"
