@@ -18,7 +18,6 @@ func randomNumber() int {
 	return rng.Intn(10) + 1
 }
 
-
 var mutex = &sync.Mutex{}
 func EvenOddSum() {
 	data := make(map[string]int)
