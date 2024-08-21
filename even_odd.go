@@ -4,7 +4,6 @@ import (
 	"math/rand"
 	"time"
 	"fmt"
-	"sync"
 )
 // Write a program to simulate a race condition occurring when one goroutine updates a data variable with odd numbers, 
 // while another updates the same data variable with even numbers. After each update , 
@@ -18,11 +17,11 @@ func randomNumber() int {
 	return rng.Intn(10) + 1
 }
 
-var mutex = &sync.Mutex{}
+
 func EvenOddSum() {
 	data := make(map[string]int)
 	dataChannel := make(chan int, 50)
-	var wg = sync.WaitGroup{}
+	
 
 	for i := 0; i < 50; i++ {
 		number := randomNumber()
